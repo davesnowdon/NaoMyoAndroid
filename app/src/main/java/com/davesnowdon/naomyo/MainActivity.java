@@ -50,12 +50,6 @@ public class MainActivity extends Activity {
             finish();
             return;
         }
-
-        Intent intent = new Intent(context, ScanActivity.class);
-        context.startActivity(intent);
-
-        myoListener = new MyoDeviceListener(context);
-        hub.addListener(myoListener);
     }
 
 
@@ -78,7 +72,7 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickConnect(View view) {
+    public void onConnectNao(View view) {
         Log.i(TAG, "Connect clicked");
         EditText ipView = (EditText) findViewById(R.id.robot_ip_edit);
         final String addr = ipView.getText().toString();
@@ -117,6 +111,15 @@ public class MainActivity extends Activity {
             });
             connectThread.start();
         }
+    }
+
+    public void onConnectMyo(View view) {
+        Hub hub = Hub.getInstance();
+        Intent intent = new Intent(context, ScanActivity.class);
+        context.startActivity(intent);
+
+        myoListener = new MyoDeviceListener(context);
+        hub.addListener(myoListener);
     }
 
     boolean isNotBlank(String str) {
