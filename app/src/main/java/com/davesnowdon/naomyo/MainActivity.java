@@ -2,6 +2,7 @@ package com.davesnowdon.naomyo;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,23 +16,46 @@ import com.aldebaran.qimessaging.Session;
 import com.aldebaran.qimessaging.helpers.al.ALMemory;
 import com.aldebaran.qimessaging.helpers.al.ALMotion;
 import com.aldebaran.qimessaging.helpers.al.ALTextToSpeech;
+import com.thalmic.myo.AbstractDeviceListener;
+import com.thalmic.myo.Hub;
+import com.thalmic.myo.scanner.ScanActivity;
 
 import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends Activity {
     private static  final String TAG = "MainActivity";
+
+    private Context context;
+
+    // NAO
     private Session naoSession;
     private ALMotion motionProxy;
     private ALMemory memoryProxy;
     private ALTextToSpeech ttsProxy;
-    private Context context;
+
+    // MYO
+    AbstractDeviceListener myoListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         context = this;
+
+        // MYO initialisation
+        Hub hub = Hub.getInstance();
+        if (!hub.init(this)) {
+            Log.e(TAG, "Could not initialize the Hub.");
+            finish();
+            return;
+        }
+
+        Intent intent = new Intent(context, ScanActivity.class);
+        context.startActivity(intent);
+
+        myoListener = new MyoDeviceListener(context);
+        hub.addListener(myoListener);
     }
 
 

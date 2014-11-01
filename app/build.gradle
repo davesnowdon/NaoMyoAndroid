@@ -20,6 +20,14 @@ android {
 }
 
 dependencies {
+    repositories {
+        maven {
+            url '../myorepository'
+        }
+    }
+
+    compile('com.thalmic:myosdk:0.6.+@aar')
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/java-qimessaging-helper.jar')
     compile files('libs/qimessaging-2.0.2.1-android.jar')

@@ -80,6 +80,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="myosdk-0.6.0" level="project" />
     <orderEntry type="library" exported="" name="qimessaging-2.0.2.1-android" level="project" />
     <orderEntry type="library" exported="" name="java-qimessaging-helper" level="project" />
   </component>
